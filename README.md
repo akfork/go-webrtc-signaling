@@ -10,7 +10,7 @@ signal  server
 
 peers
 
-
+```
 {
 ‘user_id’:system
 ‘type’:’peers’
@@ -18,11 +18,12 @@ peers
 ‘message’:{‘users’:[]}
 }
 
-
+```
 
 
 offer
 
+```
 {
 ‘user_id’:xxx,
 ‘type’:’offer’,
@@ -40,11 +41,12 @@ offer
 	}
 }
 
-
+```
 
 
 answer
 
+```
 {
 ‘user_id’:xxx,
 ‘type’:’answer’,
@@ -62,12 +64,13 @@ answer
 	}
 }
 
+```
 
 
 ice
 
 
-
+```
 {
 ‘user_id’:xxx,
 ‘type’:’offer’,
@@ -84,7 +87,7 @@ ice
 	}
 }
 
-
+```
 
 
 
@@ -92,24 +95,26 @@ ice
 
 peer_removed
 
-
+```
 {
 
-‘user_id’:xxx
-‘type’:’peer_removed’
-‘room’:’xxx’
-‘message’:’xxxx’
+'user_id':xxx
+'type':'peer_removed'
+'room':'xxx'
+'message':'xxxx'
 }
 
-
+```
 
 peer_connected
 
+```
 {
 
-‘user_id’:xxx
-‘type’:’peer_connected’
-‘room’:’xxx’
-‘message’:’xxxx’
+'user_id':xxx
+'type':'peer_connected'
+'room':'xxx'
+'message':'xxxx'
 }
 
+```
