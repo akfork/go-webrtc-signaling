@@ -44,20 +44,31 @@ class SignalingApplication(WebSocketApplication):
         token = ''
         room = ''
         user_id = ''
-        o = urlparse(ws.environ['PATH_INFO'])
-        querys = o.query.split('?')
-        for q in querys:
-            if q.startswith('token'):
-                token = q[6:]
 
-        _data = jwt.decode(token,'signaling')
+        print self.ws.handler.server.clients.values()
+
+        print self.ws.environ['PATH_INFO']
+
+        path = self.ws.environ['PATH_INFO']
+
+        token = path.split('/')[-1]
+
+        print token
+
+        try:
+            _data = jwt.decode(token,'signaling')
+        except:
+
+            print 'auth error'
+            self.ws.close()
+            return
+
 
         current_client = self.ws.handler.active_client
 
-        print current_client
 
-        current_client.setattr('room',_data['room'])
-        current_client.setattr('user_id',_data['user_id'])
+        setattr(current_client,'room',_data['room'])
+        setattr(current_client,'user_id',_data['user_id'])
 
 
         self.peer_connected(current_client.room,current_client.user_id)
@@ -199,6 +210,6 @@ def token(room,user_id):
 
 WebSocketServer(
         ('0.0.0.0', 8000),
-        Resource([('^/ws',SignalingApplication),
+        Resource([('^/ws.*',SignalingApplication),
                 ('^/.*',DebuggedApplication(flask_app))])
 ).serve_forever()
