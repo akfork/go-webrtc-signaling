@@ -32,11 +32,13 @@ offer
 	{
 		‘targetUserId’:’’,
 		‘eventName’:’offer’,
+		
 		‘data’:{
 			‘offer’:{
 				‘type’:’’
 				‘sdp’:’’
 			}
+			'connectionId':str
 		}
 	}
 }
@@ -59,7 +61,8 @@ answer
 			‘answer’:{
 				‘type’:’’
 				‘sdp’:’’
-			}
+			},
+			'connectionId':str
 		}
 	}
 }
@@ -82,7 +85,8 @@ ice
 		‘data’:{
 			‘iceCandidate’:{
 				
-			}
+			},
+			'connectionId':str
 		}
 	}
 }
