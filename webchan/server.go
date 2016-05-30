@@ -91,10 +91,12 @@ func (s *Server)ServerHTTP(w http.ResponseWriter,r *http.Request){
     go c.writeLoop()
     go c.readLoop()
 
+    s.onNewConnection(c)
+
 }
 
 
-func (s *Server) onConnection(c *Connection){
+func (s *Server) onNewConnection(c *Connection){
 
     s.cidsLock.Lock()
     defer s.cidsLock.Unlock()
@@ -159,9 +161,6 @@ func (s *Server)List(room string) ([]*Connection,error){
 }
 
 
-
-
-//  
 
 
 func (c *Connection) writeLoop(){
