@@ -2,3 +2,4 @@ package: .
 import:
 - package: github.com/gorilla/websocket
 - package: github.com/satori/go.uuid
+- package: github.com/graarh/golang-socketio

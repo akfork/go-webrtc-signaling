@@ -1,7 +1,7 @@
 # -*- coding: utf-8  -*-
 
 
-
+import uuid
 import json
 import jwt
 from urlparse import urlparse
@@ -69,14 +69,23 @@ class SignalingApplication(WebSocketApplication):
 
         setattr(current_client,'room',_data['room'])
         setattr(current_client,'user_id',_data['user_id'])
-
-
-        self.peer_connected(current_client.room,current_client.user_id)
+        setattr(current_client,'connectionId',uuid.uuid4().hex)
 
         self.send_peers(current_client.room,current_client.user_id)
 
 
+
+        self.peer_connected(current_client.room,current_client.user_id)
+
+        #self.send_peers(current_client.room,current_client.user_id)
+
+
     def on_message(self,message):
+
+        print 'on_message'
+
+        print message
+
 
         if self.ws.closed:
             return
@@ -144,7 +153,11 @@ class SignalingApplication(WebSocketApplication):
         # 向房间发送  除了user_id
         for client in self.ws.handler.server.clients.values():
             if client.room == room and client.user_id != user_id:
-                client.ws.send(json.dumps(message))
+                try:
+                    client.ws.send(json.dumps(message))
+                except:
+                    print 'braodcast error',message
+
 
 
     def send_one(self,room,user_id,message):
@@ -181,6 +194,8 @@ class SignalingApplication(WebSocketApplication):
                 'room': room,
                 'message':'kidding'
                 }
+
+        print message
 
         self.broadcast(room,user_id,message)
 
